@@ -5,15 +5,11 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.basemap import Basemap
 import seaborn as sns
 
-# 1. Load Dataset
 df = pd.read_csv("move-data.csv")
 
-# -------------------------
-# 1. HISTOGRAMS (Positive skew, negative skew, outliers)
-# We'll simulate skew by adding random data
-positive_skew = np.random.exponential(scale=2, size=1000)   # right-skewed
-negative_skew = -np.random.exponential(scale=2, size=1000)  # left-skewed
-outliers_data = np.append(np.random.normal(50, 5, 100), [120, 130, 150])  # with outliers
+positive_skew = np.random.exponential(scale=2, size=1000)
+negative_skew = -np.random.exponential(scale=2, size=1000)
+outliers_data = np.append(np.random.normal(50, 5, 100), [120, 130, 150])
 
 plt.figure(figsize=(15, 4))
 plt.subplot(1, 3, 1)
@@ -28,8 +24,6 @@ plt.title('Outliers Example')
 plt.tight_layout()
 plt.show()
 
-# -------------------------
-# 2. CUSTOMIZATION (Legends, Colors) using Power column
 plt.figure(figsize=(8,5))
 plt.hist(df['Power'], bins=10, color='orange', edgecolor='black', label='Power')
 plt.xlabel('Power')
@@ -38,8 +32,6 @@ plt.title('Power Distribution')
 plt.legend()
 plt.show()
 
-# -------------------------
-# 3. SUBPLOTS
 fig, axs = plt.subplots(1, 2, figsize=(10,4))
 axs[0].hist(df['PP'], color='purple')
 axs[0].set_title('PP Distribution')
@@ -48,8 +40,6 @@ axs[1].set_title('Accuracy Distribution')
 plt.tight_layout()
 plt.show()
 
-# -------------------------
-# 4. TEXT and ANNOTATION
 plt.figure(figsize=(6,4))
 plt.scatter(df['Power'], df['Accuracy'], color='teal')
 plt.xlabel('Power')
@@ -62,8 +52,6 @@ plt.annotate(df.loc[max_power_idx, 'Name'],
              arrowprops=dict(facecolor='black', arrowstyle="->"))
 plt.show()
 
-# -------------------------
-# 5. 3D PLOTTING
 fig = plt.figure(figsize=(8,6))
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(df['PP'], df['Power'], df['Accuracy'], c='r', marker='o')
@@ -73,8 +61,6 @@ ax.set_zlabel('Accuracy')
 ax.set_title('3D Plot of PP, Power, Accuracy')
 plt.show()
 
-# -------------------------
-# 6. GEOGRAPHIC DATA with Basemap (Example: plotting random points)
 plt.figure(figsize=(10, 6))
 m = Basemap(projection='merc', llcrnrlat=-60, urcrnrlat=80,
             llcrnrlon=-180, urcrnrlon=180, resolution='c')
@@ -83,7 +69,6 @@ m.drawcountries()
 m.fillcontinents(color='lightyellow', lake_color='lightblue')
 m.drawmapboundary(fill_color='lightblue')
 
-# Random coordinates
 lons = np.random.uniform(-180, 180, 10)
 lats = np.random.uniform(-60, 80, 10)
 x, y = m(lons, lats)
@@ -91,8 +76,6 @@ m.scatter(x, y, marker='o', color='red', zorder=5)
 plt.title("Random Points on World Map")
 plt.show()
 
-# -------------------------
-# 7. VISUALIZATION with SEABORN
 plt.figure(figsize=(6,4))
 sns.boxplot(x='Type', y='Power', data=df, palette='pastel')
 plt.title('Power by Move Type')
