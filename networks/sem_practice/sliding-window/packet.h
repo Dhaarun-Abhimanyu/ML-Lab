@@ -7,6 +7,7 @@
 
 #define DATA_TYPE 0
 #define ACK_TYPE 1
+#define TIMEOUT_SEC 2.0
 
 typedef struct {
     int type;

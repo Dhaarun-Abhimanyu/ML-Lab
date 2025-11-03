@@ -40,7 +40,7 @@ int main(){
     printf("GBN Server listening...\n");
 
     addr_size = sizeof(client_addr);
-    clientfd = accept(sockfd, (struct sockaddr*)&serv_addr, &addr_size);
+    clientfd = accept(sockfd, (struct sockaddr*)&client_addr, &addr_size);
     if(clientfd < 0){
         handleError("Accept failed.\n");
     }
