@@ -1,9 +1,9 @@
-x = [[0,0], [0,1], [1,0], [1,1]]
-y = []
-w = []
-lrate = 0.1
+x = [[0,0], [0,1], [1,0], [1,1]] #input
+y = [] #output
+w = [] #weights
+lrate = 0.1 #learning rate
 
-def inp():
+def inp(): #getting input
     fn = input('Enter and (or) or: ')
     for i in x:
         if fn == 'and':
@@ -21,14 +21,14 @@ def inp():
     w.extend(temp)
     return 1
 
-def activation(out):
+def activation(out): #returns after passing output to activaiton function
     #>=0: 1, else 0
     if out >= 0:
         return 1
     else:
         return 0
 
-def test():
+def test(): #returns 1 if targets and outputs match, else 0
     res = []
     for inp in x:
         curr = w[0]
@@ -40,24 +40,24 @@ def test():
             return 0
     return 1
 
-def forward(curr):
+def forward(curr): #forward pass
     res = w[0]
     for i,j in zip(curr, w[1:]):
         res += i*j
     return activation(res)
 
-def backward(curr, target, output):
+def backward(curr, target, output): #backward pass
     delt = lrate * (target - output)
     w[0] += delt
     for i in range(0,2):
         w[i+1] += delt*curr[i]
 
-def epoch():
+def epoch(): #runs one epoch (iterate over all test cases)
     for i in range(0,len(x)):
         output = forward(x[i])
         backward(x[i], y[i], output)
 
-def train():
+def train(): #runs epochs until convergence
     if inp() == 0:
         print('Error fetching inputs')
         exit(0)
