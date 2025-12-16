@@ -5,13 +5,17 @@ lrate = 0.1
 
 def inp():
     fn = input('Enter and (or) or: ')
-    if fn != 'and' and fn != 'or':
-        return 0
     for i in x:
         if fn == 'and':
             y.append(i[0] & i[1])
         elif fn == 'or':
             y.append(i[0] | i[1])
+        elif fn == 'nand':
+            y.append((i[0] & i[1]) ^ 1)
+        elif fn == 'nor':
+            y.append((i[0] | i[1]) ^ 1)
+        else:
+            return 0
     
     temp = list(map(float, input('Enter 3 weights: ').split(' ')))
     w.extend(temp)
